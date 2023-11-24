@@ -281,6 +281,8 @@
 #downloadsListBox,
 .downloadsPanelFooterButton {
   margin: var(--arrowpanel-menuitem-margin) !important;
+  width: auto !important;
+  min-width: auto !important;
 }
 
 #downloadsPanel-blockedSubview,
@@ -380,7 +382,7 @@ panelview .toolbarbutton-1,
 }
 
 /* disable context menu when this tweak is applied */
-@supports not -moz-bool-pref("uc.tweak.revert-context-menu") {
+@media not (-moz-bool-pref: "uc.tweak.revert-context-menu") {
   /* Context Menu */
   menupopup:not(.PanelUI-subView),
   menupopup:not(.PanelUI-subView) menuitem,
@@ -403,7 +405,7 @@ panelview .toolbarbutton-1,
   panel[type="autocomplete-richlistbox"]>.autocomplete-richlistbox,
   .menupopup-arrowscrollbox {
     background: var(--arrowpanel-background) !important;
-    border: 0 !important;
+    border: 1px solid light-dark(transparent, var(--panel-separator-color)) !important;
   }
 
   /* make room for menu shadow */
@@ -448,15 +450,6 @@ panelview .toolbarbutton-1,
     box-shadow: var(--uc-box-shadow) !important;
   }
 
-  .popup-internal-box,
-  .menupopup-arrowscrollbox {
-    margin: 0 !important;
-  }
-
-  .menupopup-arrowscrollbox {
-    margin: var(--uc-margin) !important;
-  }
-
   .popup-internal-box {
     margin: 0 !important;
   }
@@ -493,6 +486,10 @@ panelview .toolbarbutton-1,
     padding: 0 !important;
     background: none !important;
     border-top: 1px solid var(--panel-separator-color) !important;
+
+    &::before {
+      content: unset !important;
+    }
   }
 
   #PlacesToolbar menupopup[placespopup="true"] menuseparator::before {
@@ -567,7 +564,9 @@ panelview .toolbarbutton-1,
     width: 16px !important;
   }
 
-  menulist>menupopup>menuitem:is([checked="true"], [selected="true"])::before {
+  menulist>menupopup>menuitem:is([checked="true"], [selected="true"])::before,
+  menupopup>menuitem::before,
+  menupopup>menuitem::after {
     display: none !important;
   }
 
@@ -619,7 +618,7 @@ panelview .toolbarbutton-1,
     fill: var(--lwt-toolbarbutton-icon-fill-attention, var(--toolbarbutton-icon-fill-attention, currentColor)) !important;
   }
 
-  @supports not -moz-bool-pref("uc.tweak.smaller-context-menu-text") {
+  @media not (-moz-bool-pref: "uc.tweak.smaller-context-menu-text") {
     @media (-moz-platform: windows) {
       .menu-text,
       .menu-iconic-text,

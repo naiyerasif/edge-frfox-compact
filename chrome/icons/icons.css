@@ -133,6 +133,10 @@ and 11 so applied to both) */
   list-style-image: url("new-tab.svg") !important;
 }
 
+#firefox-view-button {
+  list-style-image: url("firefox-view.svg") !important;
+}
+
 #sync-button,
 .urlbarView-row[source="tabs"]>.urlbarView-row-inner>.urlbarView-no-wrap>.urlbarView-favicon,
 #urlbar-engine-one-off-item-tabs {
@@ -166,6 +170,11 @@ and 11 so applied to both) */
 #find-button,
 #appMenu-find-button2 {
   list-style-image: url("search-page.svg") !important;
+}
+
+#appMenu-translate-button,
+#translations-button-icon {
+  list-style-image: url("translate.svg") !important;
 }
 
 #open-file-button {
@@ -361,7 +370,9 @@ and 11 so applied to both) */
 .widget-overflow-list .subviewbutton-nav::after,
 .PanelUI-subView .subviewbutton-nav::after,
 .menu-right {
-  content: url("arrow-right.svg") !important;
+  content: url("arrow-filled-right.svg") !important;
+  opacity: 0.6 !important;
+  scale: 0.75 !important;
 }
 
 #PlacesChevron,
@@ -550,7 +561,7 @@ and 11 so applied to both) */
 }
 
 /* disable context menu icons when this tweak is applied */
-@supports not -moz-bool-pref("uc.tweak.revert-context-menu") {
+@media not (-moz-bool-pref: "uc.tweak.revert-context-menu") {
 
   /* Context Menu Icons */
   menupopup>menuitem:is([checked="true"], [selected="true"]) .menu-iconic-icon {
@@ -932,4 +943,68 @@ and 11 so applied to both) */
 #unified-extensions-panel .panel-header>h1>span::before {
   --header-image: url("extension.svg");
   --uc-enabled: 1;
+}
+
+/* Tree items used for side bar and library windows */
+treechildren::-moz-tree-image {
+  fill-opacity: 1 !important;
+}
+
+treechildren::-moz-tree-image(title) {
+  list-style-image: url("page-portrait.svg") !important;
+}
+
+/* default folder icon */
+treechildren::-moz-tree-image(title, container),
+treechildren::-moz-tree-image(title, open) {
+  list-style-image: url("folder.svg") !important;
+}
+
+/* bookmarks bar icon */
+treechildren::-moz-tree-image(container, queryFolder_toolbar_____) {
+  list-style-image: url("bookmark-hollow.svg") !important;
+}
+
+/* bookmarks menu icon */
+treechildren::-moz-tree-image(container, queryFolder_menu________) {
+  list-style-image: url("folder.svg") !important;
+}
+
+/* smart folder icon */
+treechildren::-moz-tree-image(query) {
+  list-style-image: url("settings.svg") !important;
+}
+
+/* bookmarks category icon */
+treechildren::-moz-tree-image(query, OrganizerQuery_allbms_____v) {
+  list-style-image: url("bookmark-hollow.svg") !important;
+}
+
+/* downloads category icon */
+treechildren::-moz-tree-image(query, OrganizerQuery_downloads__v) {
+  list-style-image: url("downloads.svg") !important;
+}
+
+/* tags category icon */
+treechildren::-moz-tree-image(title, query, tagContainer),
+treechildren::-moz-tree-image(query, OrganizerQuery_tags_______v) {
+  list-style-image: url("tag.svg") !important;
+}
+
+/* calendar icon for folders grouping items by date */
+treechildren::-moz-tree-image(title, query, dayContainer) {
+  list-style-image: url("history.svg") !important;
+}
+
+treechildren::-moz-tree-image(title, query, hostContainer) {
+  list-style-image: url("folder.svg") !important;
+}
+
+/* history category icon */
+treechildren::-moz-tree-image(query, OrganizerQuery_history____v) {
+  list-style-image: url("history.svg") !important;
+}
+
+treechildren::-moz-tree-image(title, query, folder) {
+  list-style-image: url("folder.svg") !important;
 }

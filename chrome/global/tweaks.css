@@ -1,48 +1,41 @@
 /* Edge-Frfox - tweaks.css */
 
 /* disable drag space above tabs */
-@supports -moz-bool-pref("uc.tweak.disable-drag-space") {
-  :root #titlebar {
+@media (-moz-bool-pref: "uc.tweak.disable-drag-space") {
+  :root {
     --tab-block-margin: 0px !important;
   }
 }
 
 /* force tabs to toolbar bg (useful for proton themes) (might experience some
 bugs with certain themes eg. dark text on dark background.) */
-@supports -moz-bool-pref("uc.tweak.force-tab-colour") {
+@media (-moz-bool-pref: "uc.tweak.force-tab-colour") {
   :root {
     --lwt-selected-tab-background-color: unset !important;
   }
 }
 
 /* remove tab separators */
-@supports -moz-bool-pref("uc.tweak.remove-tab-separators") {
-  .tabbrowser-tab:not([selected="true"], :hover, [beforeselected-visible], [beforehovered]) .tab-stack::after {
-    display: none !important;
-  }
-
-  .tabbrowser-tab:not([last-visible-tab="true"]) {
-    margin-inline-end: 0px !important;
+@media (-moz-bool-pref: "uc.tweak.remove-tab-separators") {
+  .tabbrowser-tab .tab-stack {
+    &::before,
+    &::after {
+      content: initial !important;
+    }
   }
 }
 
-@supports -moz-bool-pref("uc.tweak.floating-tabs") {
+@media (-moz-bool-pref: "uc.tweak.floating-tabs") {
   :root:not(:-moz-lwtheme),
-  :root[style*="--lwt-accent-color: rgb(240, 240, 244)"] {
-    --lwt-accent-color: #f3f3f3 !important;
+  :root[privatebrowsingmode="temporary"][style*="--lwt-accent-color: rgb(28, 27, 34)"] {
+    --lwt-accent-color: light-dark(#f3f3f3, #202020) !important;
     --lwt-accent-color-inactive: unset !important;
-    --toolbar-bgcolor: #fff !important;
-    --lwt-tab-text: #262626 !important;
+    --toolbar-bgcolor: light-dark(#fff, #4D4D4D) !important;
+    --lwt-tab-text: light-dark(#262626, #fff) !important;
+    --chrome-content-separator-color: light-dark(#bfbfbf, #535353) !important;
     --uc-urlbar-shadow: none !important;
-  }
-
-  :root[lwt-default-theme-in-dark-mode="true"],
-  :root[style*="--lwt-accent-color: rgb(28, 27, 34)"] {
-    --lwt-accent-color: #202020 !important;
-    --toolbar-bgcolor: #4D4D4D !important;
-    --lwt-accent-color-inactive: unset !important;
-    --chrome-content-separator-color: #535353 !important;
-    --uc-tab-border-color: #ffffff0f !important;
+    --uc-tab-border-color: light-dark(#0000, #fff1) !important;
+    --toolbar-non-lwt-bgcolor: var(--lwt-accent-color) !important;
   }
 
   @media (-moz-gtk-csd-available) {
@@ -91,17 +84,17 @@ bugs with certain themes eg. dark text on dark background.) */
 
   /* adjust spacing of area above tabs */
   @media not (-moz-platform: macos) {
-    :root[sizemode="maximized"] #titlebar {
+    :root[sizemode="maximized"] {
       --tab-block-margin: 4px !important;
     }
   }
 
-  :root:is([inFullscreen], :not([tabsintitlebar])) #titlebar {
+  :root:is([inFullscreen], :not([tabsintitlebar])) {
     --tab-block-margin: 4px !important;
   }
 
-  @supports -moz-bool-pref("uc.tweak.disable-drag-space") {
-    :root #titlebar {
+  @media (-moz-bool-pref: "uc.tweak.disable-drag-space") {
+    :root {
       --tab-block-margin: 4px !important;
     }
   }
@@ -132,72 +125,19 @@ bugs with certain themes eg. dark text on dark background.) */
   :root {
     --uc-titlebar-shadow: none;
     --uc-tab-shadow:
-      0 3.3px 3px rgba(0, 0, 0, 0.06),
-      0 0 0 1px rgba(0, 0, 0, 0.11);
+      0 3.3px 3px rgb(0 0 0 / .06),
+      0 0 0 1px rgb(0 0 0 / .11);
   }
 
   :root[lwtheme-brighttext="true"] {
     --uc-titlebar-shadow: none;
-    --uc-tab-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+    --uc-tab-shadow: 0 1px 2px rgb(0 0 0 / .08);
   }
 }
 
-/* Mica broken on newer versions of Firefox */
-/* Uncomment to enable, only works for Firefox versions lower than 115 */
-/* @media (-moz-platform: windows) {
-  @supports -moz-bool-pref("uc.tweak.win11-mica") {
-    #main-window:not([inFullscreen]):not(:-moz-lwtheme),
-    #main-window:not([inFullscreen])[lwt-default-theme-in-dark-mode="true"] {
-      appearance: -moz-win-borderless-glass !important;
-      background: transparent !important;
-    }
-
-    #main-window:not([inFullscreen])[lwt-default-theme-in-dark-mode="true"] #navigator-toolbox:not(:-moz-window-inactive) {
-      background: transparent !important;
-    }
-
-    .tab-background:is([selected], [multiselected]) {
-      background: var(--toolbar-bgcolor) !important;
-    }
-    :root:not([inFullscreen]):not(:-moz-lwtheme):not(:-moz-window-inactive) {
-      --lwt-accent-color: #00000020 !important;
-    }
-
-    @supports -moz-bool-pref("uc.tweak.floating-tabs") {
-      :root:not([inFullscreen]):not(:-moz-lwtheme):not(:-moz-window-inactive) {
-        --toolbar-bgcolor: #ffffffcc !important;
-        --lwt-accent-color: #0000 !important;
-      }
-
-      :root:not([inFullscreen])[lwt-default-theme-in-dark-mode="true"]:not(:-moz-window-inactive) {
-        --toolbar-bgcolor: #ffffff25 !important;
-        --lwt-accent-color: #0000 !important;
-      }
-    }
-
-    :root:is(:not(:-moz-lwtheme), [lwt-default-theme-in-dark-mode="true"]) .titlebar-buttonbox-container {
-      --uc-titlebar-button-size: 30px;
-      --uc-titlebar-size: calc(var(--tab-min-height) + var(--tab-block-margin));
-      margin-bottom: calc(var(--uc-titlebar-size) - var(--uc-titlebar-button-size)) !important;
-    }
-
-    :root:not([inFullscreen]):is(:not(:-moz-lwtheme), [lwt-default-theme-in-dark-mode="true"]) .titlebar-button:not(.titlebar-close:hover, :-moz-window-inactive) {
-      list-style-image: none !important;
-    }
-
-    :root:is(:not(:-moz-lwtheme), [lwt-default-theme-in-dark-mode="true"]):is([inFullscreen], [sizemode="maximized"]) .titlebar-button {
-      padding-block: 7px 9px !important;
-    }
-
-    :root:is(:not(:-moz-lwtheme), [lwt-default-theme-in-dark-mode="true"]):is([inFullscreen], [sizemode="maximized"]) .titlebar-close {
-      padding-right: 19px !important;
-    }
-  }
-} */
-
 @media not (-moz-platform: macos) {
-  @supports not -moz-bool-pref("uc.tweak.revert-context-menu") {
-    @supports -moz-bool-pref("uc.tweak.vertical-context-navigation") {
+  @media not (-moz-bool-pref: "uc.tweak.revert-context-menu") {
+    @media (-moz-bool-pref: "uc.tweak.vertical-context-navigation") {
       #context-navigation {
         flex-direction: column !important;
         -moz-box-orient: vertical !important;
@@ -250,7 +190,7 @@ bugs with certain themes eg. dark text on dark background.) */
 }
 
 @media (-moz-windows-compositor) {
-  @supports -moz-bool-pref("uc.tweak.revert-context-menu") {
+  @media (-moz-bool-pref: "uc.tweak.revert-context-menu") {
     menupopup {
       --panel-color: var(--arrowpanel-color) !important;
       --panel-border-radius: 4px !important;
@@ -266,8 +206,103 @@ bugs with certain themes eg. dark text on dark background.) */
   }
 }
 
-@supports -moz-bool-pref("uc.tweak.show-tab-close-button-on-hover") {
+@media (-moz-bool-pref: "uc.tweak.show-tab-close-button-on-hover") {
   #tabbrowser-tabs[closebuttons="activetab"] .tabbrowser-tab:not([pinned], [selected]):hover .tab-close-button {
     display: flex !important;
+  }
+}
+
+@media (-moz-bool-pref: "uc.tweak.hide-tabs-bar") {
+  :root:not([customizing]) {
+    /* Height of navbar, used for determining height and position of window controls */
+    --uc-navbar-height: 38px;
+    /* Drag space next to the window controls, allows you to move the window more easily */
+    --uc-titlebar-drag-space: 40px;
+
+    @media not (-moz-bool-pref: "uc.tweak.hide-tabs-bar.only-when-maximised") {
+      /* Set containing block for the window buttons */
+      & #titlebar {
+        position: relative !important;
+      }
+
+      /* Hide the tabs */
+      & #TabsToolbar {
+        visibility: collapse !important;
+        padding-inline-start: 0 !important;
+      }
+
+      /* Add some padding to the top of the navbar */
+      & #nav-bar {
+        padding-top: var(--tab-block-margin) !important;
+      }
+    }
+
+    /* macOS specific positioning */
+    @media (-moz-platform: macos) {
+      &[inFullscreen] {
+        /* Hide the tabs */
+        & #TabsToolbar {
+          visibility: collapse !important;
+          padding-inline-start: 0 !important;
+        }
+      }
+
+      @media not (-moz-bool-pref: "uc.tweak.hide-tabs-bar.only-when-maximised") {
+        /* Offset navbar contents to make space for the window controls */
+        &[tabsintitlebar] #nav-bar:not([inFullscreen]) {
+          padding-left: calc(84px + var(--uc-titlebar-drag-space));
+
+          /* Remove the padding from the side of the navbar */
+          & #nav-bar-customization-target > :is(toolbarbutton, toolbaritem):first-child {
+            padding-inline-start: 0 !important;
+          }
+        }
+
+        /* Positioning of the window controls */
+        #TabsToolbar .titlebar-buttonbox {
+          --uc-position: calc((var(--uc-navbar-height) + var(--tab-block-margin)) / 2 - 8px);
+          visibility: visible !important;
+          position: absolute !important;
+          top: var(--uc-position);
+          left: var(--uc-position);
+          margin: 0 !important;
+        }
+      }
+    }
+
+    /* Windows specific positioning */
+    @media (-moz-platform: windows) {
+      /* Offset navbar contents to make space for the window controls */
+      &:where([inFullscreen], [tabsintitlebar]) #nav-bar {
+        padding-right: calc(140px + var(--uc-titlebar-drag-space));
+
+        /* Remove the padding from the side of the navbar */
+        & #PanelUI-menu-button {
+          padding-inline-end: 0 !important;
+        }
+      }
+
+      /* Positioning of the window controls */
+      & #toolbar-menubar[inactive] + #TabsToolbar .titlebar-buttonbox {
+        visibility: visible !important;
+        position: absolute !important;
+        top: 0;
+        right: 0;
+        height: calc(var(--uc-navbar-height) + var(--tab-block-margin)) !important;
+      }
+        
+      /* Set background colour of the menu bar to maintain consistency with the navbar */
+      @media not (-moz-bool-pref: "uc.tweak.floating-tabs") {
+        #toolbar-menubar {
+          background-color: var(--toolbar-bgcolor) !important;
+        }
+      }
+    }
+  }
+}
+
+@media (-moz-bool-pref: "uc.tweak.hide-forward-button") {
+  :root:not([customizing]) #forward-button[disabled] {
+    display: none !important;
   }
 }
