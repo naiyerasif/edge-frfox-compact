@@ -4,29 +4,12 @@
 /* Variables */
 :root {
   /* Extra space at the top of the window. */
-  --uc-tab-top-margin: 8px !important;
-
-  /* Remove extra space at the top of the window when in fullscreen or when
-   * title bars are enabled. */
-  &[inFullscreen],
-  &:not([tabsintitlebar]) {
-    --uc-tab-top-margin: 0px !important;
-  }
-
-  /* Remove extra space at the top when the window is maximised or the menu bar
-   * is active, only on platforms other than macOS. */
-  @media not (-moz-platform: macos) {
-    &[sizemode="maximized"],
-    & #toolbar-menubar:not([inactive]) + #TabsToolbar,
-    &:has(#toolbar-menubar:not([inactive])) {
-      --uc-tab-top-margin: 0px !important;
-    }
-  }
+  --uc-tab-top-margin: 0px !important;
 
   & #TabsToolbar {
-    --tab-min-height: 32px !important;
-    --inline-tab-padding: 11px !important;
-    --uc-inline-pinned-tab-padding: 12px !important;
+    --tab-min-height: 24px !important;
+    --inline-tab-padding: 8px !important;
+    --uc-inline-pinned-tab-padding: 10px !important;
     --tab-border-radius: 4px !important;
     --toolbarbutton-inner-padding: 6px !important;
     --uc-toolbarbutton-inner-inline-padding: 8px !important;
@@ -188,7 +171,7 @@
 @media (-moz-platform: macos) {
   /* Compensate for padding added to the Tabs Toolbar. */
   .titlebar-buttonbox-container {
-    margin-inline-start: -8px !important;
+    margin-inline: var(--inline-tab-padding) !important;
 
     /* Make sure that titlebar buttons have equal spacing on all sides. */
     & .titlebar-buttonbox {

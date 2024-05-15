@@ -5,7 +5,7 @@
 :root {
   --urlbar-min-height: 30px !important;
   --urlbarView-item-inline-padding: calc(1px + var(--uc-urlbar-inline-padding) + var(--uc-urlbar-icon-inline-padding)) !important;
-  --urlbar-icon-border-radius: 99px !important;
+  --urlbar-icon-border-radius: 6px !important;
   --urlbar-icon-padding: calc(var(--toolbarbutton-inner-padding) - 2px) !important;
   --urlbar-margin-inline: 6px !important;
   --identity-box-margin-inline: 6px !important;
@@ -35,7 +35,9 @@
 /* Appearance for URL bar. */
 #urlbar-background,
 #searchbar {
-  border-radius: calc(var(--urlbar-icon-border-radius) + 2px) !important;
+  --urlbar-wrapper-border-radius: calc(var(--urlbar-icon-border-radius) + 2px);
+  border-radius: var(--urlbar-wrapper-border-radius) !important;
+  outline: 1px solid var(--arrowpanel-border-color) !important;
 
   /* Shadow for URL bar, only appears in light mode. */
   :root:not([lwtheme]) #nav-bar:not([brighttext]) & {
@@ -44,10 +46,9 @@
 
   /* Appearance when the URL bar is expanded. */
   #urlbar[open] & {
-    border-radius: 8px !important;
+    border-radius: var(--urlbar-wrapper-border-radius) !important;
     border-color: transparent !important;
     box-shadow: 0 10px 16px rgb(0 0 0 / 0.18), 0 3px 5px rgb(0 0 0 / 0.33) !important;
-    outline: 0.5px solid var(--arrowpanel-border-color) !important;
 
     :root:not([lwtheme]) & {
       outline-color: var(--panel-separator-color) !important;
@@ -99,7 +100,7 @@
 /* Add highlighted marker to the left of selected URL bar items. */
 .urlbarView-row:not([type="tip"], [type="dynamic"])[selected] > .urlbarView-row-inner,
 .urlbarView-row-inner[selected] {
-  box-shadow: 3px 0 var(--uc-urlbarView-accent-color, var(--toolbar-field-focus-border-color)) inset !important;
+  box-shadow: 2px 0 var(--uc-urlbarView-accent-color, var(--toolbar-field-focus-border-color)) inset !important;
 }
 
 /* Keep URL bar in place when expanding. */
@@ -182,6 +183,7 @@
 #urlbar[focused="true"]:not([suppress-focus-border]) > #urlbar-background,
 #searchbar:focus-within {
   outline-offset: calc(var(--focus-outline-width) * -1 + 1px) !important;
+  outline-color: var(--uc-urlbarView-accent-color) !important;
 }
 
 /* Pin icon for URL bar suggested sites. */
