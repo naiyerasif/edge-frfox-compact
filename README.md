@@ -6,6 +6,12 @@ A Firefox userChrome.css theme that aims to recreate the look and feel of Micros
 
 Screenshot: macOS / Firefox 120 / Tweaks: rounded corners, hide forward button.
 
+## Status: experimental
+Here's a list of changes in this fork (compared to the upstream).
+- Compact tabbar
+- Larger icons on newtab
+- Pins visible for pinned sites on newtab
+
 ## How to install
 1. Go to `about:support` and click the "Open Folder/Show in Finder" button for the root directory of your browser profile.
 2. Download the repository and extract the files.
